@@ -6,7 +6,13 @@
         "target": "es5",
         "jsx": "react",
         "rootDir": "src",
-        "allowJs": true
+        "allowJs": true,
+        "baseUrl": ".",
+        "paths": {
+            "@components/*": [
+                "./src/components/*"
+            ]
+        }
     },
     "include": [
         "./src/**/*"

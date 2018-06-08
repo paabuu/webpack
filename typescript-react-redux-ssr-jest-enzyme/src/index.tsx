@@ -1,14 +1,10 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './App';
-import Hello from './Hello';
+import Todo from './Todo';
 
-const Container = () => (
-    <div>
-        <App message="Hello again" />
-        <Hello name="Hippo" age={1} />
-    </div>
+const App = () => (
+    <Todo />
 );
 
-ReactDOM.render(<Container />,  document.getElementById('root') );
+ReactDOM.render(<App />,  document.getElementById('root') );
 

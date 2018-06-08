@@ -8,7 +8,10 @@ module.exports = {
         filename: 'build/app.js'
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js']
+        extensions: ['.ts', '.tsx', '.js'],
+        alias: {
+            "@components": path.resolve(__dirname, "./src/components")
+        }
     },
     module: {
         rules: [
