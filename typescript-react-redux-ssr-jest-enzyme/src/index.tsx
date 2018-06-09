@@ -29,8 +29,7 @@ const App = () => (
                 </Switch>
             </div>
         </Router>
-    </Provider>        
+    </Provider> 
 );
 
 ReactDOM.render(<App />,  document.getElementById('root') );
-

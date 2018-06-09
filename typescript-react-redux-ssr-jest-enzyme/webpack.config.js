@@ -1,8 +1,11 @@
 const path = require('path');
-
+const webpack = require('webpack');
 module.exports = {
     mode: 'development',
-    entry: './src/index.tsx',
+    entry: [
+        path.resolve(__dirname, 'src/index.tsx'),
+        "webpack-hot-middleware/client"
+    ],
     output: {
         path: path.resolve(__dirname, 'public'),
         filename: 'build/app.js'
@@ -18,7 +21,15 @@ module.exports = {
             { 
                 test: /\.tsx?$/, 
                 use: [
-                   "ts-loader"
+                   {
+                       loader: 'babel-loader',
+                       options: {
+                           plugins: [
+                            'react-hot-loader/babel'
+                           ]
+                        }
+                   },
+                   "ts-loader",
                 ]
             },
             {
@@ -30,9 +41,13 @@ module.exports = {
             }
         ]
     },
-    devServer: {
-        contentBase: path.join(__dirname, 'public'),
-        compress: true,
-        historyApiFallback: true
-    }
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin()
+    ]
+    // devServer: {
+    //     contentBase: path.join(__dirname, 'public'),
+    //     compress: true,
+    //     historyApiFallback: true
+    // }
 }
