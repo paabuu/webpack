@@ -1,13 +1,30 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import * as classNames from 'classnames';
+import { toggleTodo, Todo } from '../TodoRedux';
+import * as TransitionGroup from 'react-addons-css-transition-group';
 
-class TodoList extends React.Component<{todos: any}> {
+interface Props {
+    todos: any,
+    toggleTodo: any
+}
 
+class TodoList extends React.Component<Props> {
     render() {
         return (
-            this.props.todos.map((item, index) => (
-                <p key={index}>{ item }</p>
-            ))
+            <TransitionGroup 
+                transitionName="fade"
+                transitionEnterTimeout={200}
+                transitionLeaveTimeout={200}
+            >     
+                { this.props.todos.filter(item => !item.done).map((item) => (
+                    <p 
+                        key={item.id}
+                        onClick={ () => this.props.toggleTodo(item) }
+                        className="each-todo"
+                    >{ item.text }</p>
+                )) }
+            </TransitionGroup>     
         )
     }
 }
@@ -15,5 +32,9 @@ class TodoList extends React.Component<{todos: any}> {
 export default connect((state: {todo}) => {
     return {
         todos: state.todo
+    }
+}, dispatch => {
+    return {
+        toggleTodo: item => dispatch(toggleTodo(item))
     }
 })(TodoList);

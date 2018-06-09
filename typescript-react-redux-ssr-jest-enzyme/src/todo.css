@@ -1,0 +1,53 @@
+.todo {
+    overflow: hidden;
+    width: 200px;
+    margin: 50px auto;
+    position: relative;
+}
+
+.each-todo {
+    position: relative;
+    width: 200px;
+    line-height: 1.5;
+    background-color: skyblue;
+    color: #fff;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color .5s ease-in;
+}
+
+.each-todo-done {
+   display: none;
+}
+
+.fade-enter {
+    left: -100%;
+}
+
+.fade-enter.fade-enter-active {
+    left: 0;
+    transition: left .2s ease-in;
+}
+
+.fade-leave {
+    background-color:#eee;
+    color: #ccc;
+    left: 0;
+}
+.fade-leave.fade-leave-active {
+    left: 100%;
+    transition: left .2s ease-out;
+}
+
+.add-todo input {
+    width: 200px;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid orange;
+    padding: 5px 2px;
+    margin-bottom: 10px;
+}

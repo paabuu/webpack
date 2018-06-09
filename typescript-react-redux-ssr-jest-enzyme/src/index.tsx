@@ -8,9 +8,6 @@ import todo from './TodoRedux';
 const reducer = combineReducers({ todo })
 const store = createStore(reducer);
 
-
-console.log(store.getState());
-
 const App = () => (
     <Provider store={store}>
         <Todo />
