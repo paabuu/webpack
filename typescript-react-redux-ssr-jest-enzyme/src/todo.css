@@ -20,7 +20,17 @@
 }
 
 .each-todo-done {
-   display: none;
+    position: relative;
+    width: 200px;
+    line-height: 1.5;
+    background-color: #eee;
+    color: #ccc;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color .5s ease-in;
 }
 
 .fade-enter {
@@ -50,4 +60,20 @@
     border-bottom: 2px solid orange;
     padding: 5px 2px;
     margin-bottom: 10px;
+}
+
+.nav {
+    list-style: none;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.nav li {
+    float: left;
+    margin-right: 20px;
+}
+
+.nav li a {
+    text-decoration: none;
+    color: #666;
 }
