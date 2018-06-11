@@ -1,6 +1,9 @@
 import * as enzyme from 'enzyme';
 import * as React from 'react';
-import { Hello } from './Hello';
+import Container, { Hello } from './Hello';
+import { enthusiasm } from '../reducer/index';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 describe('test hello', () => {
     it('renders the correct text when no emthusiasm level is given', () => {
@@ -29,27 +32,62 @@ describe('test hello', () => {
             enzyme.shallow(<Hello languageName="Wenjie" enthusiasmLevel={-1} />)
         }).toThrow()
     });
-});
 
-describe('test checkbox', () => {
-    it('CheckboxWithLabel chnages the text after click', () => {
-        const hello = enzyme.shallow(<Hello languageName="wenjie" />);
-        const checkbox = hello.find('input[type="checkbox"]');
+    it('enthusiasm count + 1 after click increment button', () => {
+        const store = createStore(enthusiasm, {
+            languageName: 'A',
+            enthusiasmLevel: 1
+        });
+        const subject = (
+            <Provider store={store}>
+                <Container />
+            </Provider>
+        );
 
-        expect(hello.find('.checkbox').text()).toEqual('off');
-        checkbox.simulate('change');
-        expect(hello.find('.checkbox').text()).toEqual('on');
+        const wrapper = enzyme.mount(subject);
+        store.dispatch({
+            type: 'INCREMENT_ENTHUSIASM'
+        });
+
+        expect(wrapper.find('.greeting').text()).toEqual('Hello A!!');
     });
-});
 
-describe('test todos', () => {
-    it('add a todo after enter', () => {
-        const hello = enzyme.mount(<Hello languageName="wenjie" />);
-        const input = hello.find('.todos input');
-        expect(hello.find('.each-todo').length).toEqual(0);
-        
-        input.simulate('keydown', {target: {value: 'hahah'}, key: 'Enter'});
-        expect(hello.find('.each-todo').length).toEqual(1);
+    it('enthusiasm count - 1 after click decrement button', () => {
+        const store = createStore(enthusiasm, {
+            languageName: 'A',
+            enthusiasmLevel: 3
+        });
+        const subject = (
+            <Provider store={store}>
+                <Container />
+            </Provider>
+        );
+
+        const wrapper = enzyme.mount(subject);
+        store.dispatch({
+            type: 'DECREMENT_ENTHUSIASM'
+        });
+
+        expect(wrapper.find('.greeting').text()).toEqual('Hello A!!');
+    });
+
+    it('enthusiasm count will not be less than 1 after click decrement button', () => {
+        const store = createStore(enthusiasm, {
+            languageName: 'A',
+            enthusiasmLevel: 1
+        });
+        const subject = (
+            <Provider store={store}>
+                <Container />
+            </Provider>
+        );
+
+        const wrapper = enzyme.mount(subject);
+        store.dispatch({
+            type: 'DECREMENT_ENTHUSIASM'
+        });
+
+        expect(wrapper.find('.greeting').text()).toEqual('Hello A!');
     });
 });
 
