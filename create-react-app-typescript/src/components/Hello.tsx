@@ -1,46 +1,23 @@
 import * as React from 'react';
+import * as actions from '../actions';
+import { StoreState } from '../types/index';
+import { connect, Dispatch } from 'react-redux';
 
 interface Props {
-    name: string;
+    languageName: string;
     enthusiasmLevel?: number;
-}
-
-interface State {
-    isChecked: boolean;
-    todos: string[];
+    onIncrement?: () => void;
+    onDecrement?: () => void;
 }
 
 const getExclamationMarks = (level: number) => {
     return Array(level + 1).join('!');
 }
 
-class Hello extends React.Component<Props, State> {
-
-    constructor(props: Props) {
-        super(props);
-        this.state = {
-            isChecked: false,
-            todos: []
-        }
-    }
-
-    public onChange = () => {
-        this.setState({
-           isChecked: !this.state.isChecked 
-        });
-    }
-
-    public addTodo = (e: any) => {
-        if (e.key === 'Enter' && e.target.value) {
-            this.setState({
-                todos: [...this.state.todos, e.target.value]
-            });
-            e.target.value = '';
-        }
-    }
+export class Hello extends React.Component<Props, object> {
 
     public render() {
-        const { name, enthusiasmLevel = 1 } = this.props;
+        const { languageName, enthusiasmLevel = 1 } = this.props;
 
         if (enthusiasmLevel <= 0) {
             throw new Error('You could be a little more enthusiastic. :D');
@@ -48,26 +25,26 @@ class Hello extends React.Component<Props, State> {
 
         return (  
             <div>
-                <p className="greeting">Hello {name + getExclamationMarks(enthusiasmLevel)}</p>
-                <div>
-                    <label htmlFor="" className="checkbox">
-                        <input 
-                            type="checkbox"
-                            checked={this.state.isChecked}
-                            onChange={this.onChange}
-                        />
-                        {this.state.isChecked ? 'on' : 'off'}
-                    </label>
-                </div>
-                <div className="todos">
-                    <input type="text" onKeyDown={this.addTodo} />
-                    {this.state.todos.map((item, index) => (
-                        <p className="each-todo" key={index}>{item}</p>
-                    ))}
-                </div>
+                <p className="greeting">Hello {languageName + getExclamationMarks(enthusiasmLevel)}</p>
+                <button onClick={this.props.onDecrement}>-</button>
+                <button onClick={this.props.onIncrement}>+</button>
             </div>
         )
     }
 }
 
-export default Hello;
+export function mapStateToProps({ enthusiasmLevel, languageName}: StoreState) {
+    return {
+        enthusiasmLevel,
+        languageName
+    };
+}
+
+export function mapDispatchToProps(dispatch: Dispatch<actions.EnthusiasmAction>) {
+    return {
+        onDecrement: () => dispatch(actions.decrementEnthusiasm()),
+        onIncrement: () => dispatch(actions.incrementEnthusiasm())
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Hello as any);
