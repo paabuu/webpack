@@ -21,15 +21,7 @@ module.exports = {
             { 
                 test: /\.tsx?$/, 
                 use: [
-                   {
-                       loader: 'babel-loader',
-                       options: {
-                           plugins: [
-                            'react-hot-loader/babel'
-                           ]
-                        }
-                   },
-                   "ts-loader",
+                    "ts-loader",
                 ]
             },
             {
