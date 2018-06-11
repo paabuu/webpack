@@ -7,7 +7,7 @@ interface Props {
     addTodo: any
 }
 
-class AddTodo extends React.Component<Props> {
+export class AddTodo extends React.Component<Props> {
     public input;
 
     handleAddTodo = () => {

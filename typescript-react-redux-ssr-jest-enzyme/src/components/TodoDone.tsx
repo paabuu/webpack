@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-const TodoDone = ({todos}) => {
+export const TodoDone = ({todos}) => {
     return (
         <div className="todo">
             {
@@ -13,7 +13,7 @@ const TodoDone = ({todos}) => {
     )
 }
 
-export default connect((state: {todo: any}) => {
+export default connect((state: {todo: object[]}) => {
     return {
         todos: state.todo
     }   
