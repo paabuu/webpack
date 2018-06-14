@@ -9,4 +9,5 @@ function replaceHello(source) {
 
     return `export default ${ JSON.stringify(replaceWithOption) }`;
 }
+
 module.exports = replaceHello;

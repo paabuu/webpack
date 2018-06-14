@@ -1,5 +1,4 @@
 const path = require('path');
-
 module.exports = {
     mode: 'development',
     entry: path.resolve(__dirname, 'index.js'),
@@ -17,6 +16,12 @@ module.exports = {
                         string: "hehe",
                         regex: /hello/g
                     }
+                }]
+            },
+            {
+                test: /.(png|jpg)$/,
+                use: [{
+                    loader: path.resolve(__dirname, './image-loader')
                 }]
             }
         ]
