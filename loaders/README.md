@@ -6,8 +6,8 @@
 ```
 {
     options: {
-        string, // 替换字符串
-        regex // 匹配正则表达式
+        string: "替换字符串"
+        regex: /匹配正则表达式/g
     }
 }
 ```
