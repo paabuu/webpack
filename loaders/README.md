@@ -11,3 +11,15 @@
     }
 }
 ```
+
+### image-loader
+
+压缩图片，并用hash值重命名
+```
+{
+    options: {
+        name: "文件名",
+        publicPath: "路径前缀"
+    }
+}
+```
