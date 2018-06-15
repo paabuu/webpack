@@ -1,7 +1,7 @@
 function SimplePlugin() {};
 
 SimplePlugin.prototype.apply = function(compiler) {
-    compiler.plugin('emit', function(compilation, callback) {
+    compiler.hooks.emit.tap('emit', function(compilation) {
         var fileList = 'In this build:\n\n';
         
         for (var filename in compilation.assets) {
@@ -17,8 +17,6 @@ SimplePlugin.prototype.apply = function(compiler) {
                 return fileList.length;
             }
         };
-
-        callback();
     })
 }
 
