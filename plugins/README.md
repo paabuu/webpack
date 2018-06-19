@@ -20,6 +20,7 @@ module.exports = {
 ```
 Options
 Name | Type | Default | Description
+--- | --- | --- | ---
 title | {string} | Webpack App | 文档标题
 filename | {string} | index.html | 生成的文件名
 template | {string} | -- | 模板文件
