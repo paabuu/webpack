@@ -6,14 +6,14 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     entry: {
       index: path.resolve(__dirname, 'src/index.js'),
       page2: path.resolve(__dirname, 'src/page2.js')
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].[chunkhash].js'
+        filename: '[name].[hash].js'
     },
     resolve: {
         extensions: ['.css', '.js']
@@ -79,6 +79,6 @@ module.exports = {
         })
     ],
     devServer: {
-        contentBase: path.resolve(__dirname, 'dist')
+        contentBase: path.resolve(__dirname, 'dist'),
     }
 }
