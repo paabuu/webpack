@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[2],[,,,function(n,o,s){},function(n,o,s){"use strict";s.r(o);s(3),s(0);console.log("this is page 2")}],[[4,0,1]]]);

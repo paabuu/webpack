@@ -24,7 +24,19 @@ module.exports = {
                 test: /\.css/,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    'css-loader'
+                    'css-loader',
+                    'postcss-loader'
+                ]
+            },
+            {
+                test: /\.(jpg|png|svg)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 4000
+                        }
+                    }
                 ]
             }
         ] 
@@ -53,7 +65,7 @@ module.exports = {
             meta: {
                 description: 'this is home page'
             },
-            chunks: ['manifest', 'vendors', 'index']
+            chunks: ['manifest', 'vendor', 'index']
             // hash: true
         }),
         new HtmlWebpackPlugin({

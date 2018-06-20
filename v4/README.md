@@ -1,6 +1,5 @@
 ## Todos:
   - 代码分割，按需加载
-  - 常用loader
   - 服务器端渲染
   - 脚手架
 
@@ -35,12 +34,94 @@ mode: development | production
   }
 ```
 
+## 常用loader
+
+### style-loader/css-loader/postcss-loader/sass-loader/MiniCssExtractPlugin.loader
+style-loader: 把css样式插入到DOM style标签中
+
+css-loader: 解析@import和url()
+```js
+  options: {
+    module: true, // 开启css module
+  }
+  // 不开启css module，也能防止作用域污染
+  :local(className) {
+    //**
+  }
+```
+postcss-loader: 配合一些插件使用，如autoprefixer
+```js
+  // postcss.config.js
+  module.exports = {
+    plugins: [
+      require('autoprefixer')({
+        browsers: [
+          "defaults",
+          "not ie < 11",
+          "last 2 versions",
+          "> 1%",
+          "iOS 7",
+          "last 3 iOS versions"
+        ]
+      })
+    ]
+  };
+```
+
+sass-loader: 解析sass文件
+
+MiniCssExtractPlugin.loader: 将css生成单独的文件(不再需要style-loader)
+
+### file-loader
+```
+options: {
+  name: '文件名', [path]/[name].[hash].[ext]
+  outputPath: '输出位置',
+  publicPath: '前缀',
+}
+```
+
+### url-loader
+功能与file-loader类似，但是可以把小文件转为base64
+```
+options: {
+  limit: 10000// kb
+}
+```
+
+### babel-loader
+presets:
+- babel-preset-env: 等于preset-2015 + preset-2016 + preset-2017
+- babel-preset-react: 支持react jsx语法
+- babel-plugin-stage-n: 非正式提案
+
+plugins: 
+- babel-plugin-transform-decorators-legacy: 支持es装饰器语法
+- babel-plugin-transform-class-properties: 支持类属性新写法
+- babel-plugin-transform-runtime: 支持es新APIs,如Map,Set,Promise
+
+```
+.babelrc
+{
+  presets: [
+    'env',
+    'react',
+    'stage-n'
+  ],
+  plugins: [
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "transform-runtime"
+  ]
+}
+```
+
 ## 常用插件
 
 ### HtmlWebpackPlugin
 
 Usage
-```
+```js
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
@@ -78,7 +159,7 @@ excludeChunks | {Array.<string>} | -- | 忽略指定代码块
 ### mini-css-extract-plugin
 
 Usage
-```
+```js
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const devMode = process.env.NODE_ENV !== 'production'
 
