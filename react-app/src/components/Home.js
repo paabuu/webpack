@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import style from './home.css';
 
 import { Context } from 'App';
+import TestPureComponent from './TestPureComponent';
 
 const Home = () => (
     <Context.Consumer>
@@ -16,6 +17,7 @@ const Home = () => (
                         <button onClick={ decrease }>--</button>
                     </div>
                     <Link to="/detail">to detail</Link>
+                    <TestPureComponent />
                 </div>
             )
         }
