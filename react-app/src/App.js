@@ -9,7 +9,6 @@ const AsyncNotFound = importedComponent(() => import(/* webpackChunkName: '404' 
 
 export const Context = React.createContext();
 
-
 class Container extends Component {
     state = {
         count: 0
