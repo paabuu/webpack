@@ -11,3 +11,5 @@ const App = (props) => {
         </ul>
     )
 }
+
+export default App;
