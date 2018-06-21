@@ -15,7 +15,8 @@ const config = {
             filename: 'index.html',
             template: path.resolve(__dirname, 'public/index.html')
         })
-    ]
+    ],
+    stats: "minimal"
 };
 
 module.exports = merge(base, config);
