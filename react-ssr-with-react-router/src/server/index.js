@@ -3,11 +3,12 @@ import cors from 'cors';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { matchPath, StaticRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import serialize from 'serialize-javascript';
 
 import routes from '../shared/routes';
 import App from '../shared/App';
-import { fetchPopularRepos } from '../shared/api';
+import store from '../shared/redux/store';
 const app = express();
 
 app.use(cors());
@@ -15,16 +16,18 @@ app.use(express.static('public'));
 
 app.get('*', (req, res) => {
     const activeRoute = routes.find(route => matchPath(req.url, route)) || {};
-    const promise = activeRoute.fetchInitialData
-        ? activeRoute.fetchInitialData(req.path)
+    const promise = activeRoute.action
+        ? store.dispatch(activeRoute.action(req.path))
         : Promise.resolve();
 
     promise
     .then(data => {
         const markup = renderToString(
-            <StaticRouter location={req.url} context={{data}}>
-                <App data={data} />
-            </StaticRouter>
+            <Provider store={store}>
+                <StaticRouter location={req.url} context={{data}}>
+                    <App data={data} />
+                </StaticRouter>
+            </Provider>
         );
 
         const html = `
@@ -32,7 +35,7 @@ app.get('*', (req, res) => {
             <html>
                 <head>
                     <title>React SSR</title>
-                    <script>window.__INIT_DATA__ = ${serialize(data)}</script>
+                    <script>window.__INIT_STATE__ = ${serialize(store.getState())}</script>
                 </head>
                 <body>
                     <div id="root">${markup}</div>

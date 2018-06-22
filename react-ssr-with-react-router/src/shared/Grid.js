@@ -1,48 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchRepos } from './redux/actions';
 
 class Grid extends Component {
-    constructor(props) {
-        super(props);
-
-        let repos;
-
-        if (__isBrowser__) {
-            repos = window.__INIT_DATA__;
-            delete window.__INIT_DATA__;
-        } else {
-            repos = props.staticContext.data
-        }
-
-        this.state = {
-            repos
-        }
-
-        this.fetchRepos = this.fetchRepos.bind(this);
+    componentDidMount() {
+        this.props.fetchRepos(this.props.match.params.id);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.match.params.id !== this.props.match.params.id) {
-            this.fetchRepos(nextProps.match.params.id);
-        }
-    }
-
-    fetchRepos(lang) {
-        this.setState({ repos: [] });
-        this.props.fetchInitialData(lang)
-            .then(repos => {
-                this.setState({ repos })
-            })
-    }
-
-    componentDidMount() {
-        if (!this.state.repos) {
-            this.fetchRepos();
+        if(nextProps.match.params.id !== this.props.match.params.id) {
+            this.props.fetchRepos(nextProps.match.params.id);
         }
     }
 
     render() {
-        const { repos } = this.state;
-
+        const { repos } = this.props;
         return (
             <ul style={{display: 'flex', flexWrap: 'wrap'}}>
             {repos.map(({ name, owner, stargazers_count, html_url }) => (
@@ -59,4 +32,9 @@ class Grid extends Component {
     }
 }
 
-export default Grid;
+export default connect(
+    ({repos}) => ({repos}),
+    dispatch => ({
+        fetchRepos: lang => dispatch(fetchRepos(lang))
+    })
+)(Grid);

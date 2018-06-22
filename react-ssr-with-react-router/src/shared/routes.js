@@ -1,6 +1,7 @@
 import Grid from './Grid';
 import Home from './Home';
-import { fetchPopularRepos } from './api';
+import { fetchRepos } from './redux/actions';
+
 const routes = [
     {
         path: '/',
@@ -10,7 +11,7 @@ const routes = [
     {
         path: '/popular/:id',
         component: Grid,
-        fetchInitialData: (path = "") => fetchPopularRepos(path.split('/').pop())
+        action: (path = "") => fetchRepos(path.split('/').pop())
     }
 ];
 
