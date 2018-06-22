@@ -1,11 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
+const MiniCssEatractPlugin = require('mini-css-extract-plugin');
 
 const browserConfig = {
     mode: 'production',
     entry: './src/browser/index.js',
-    devtool: 'source-map',
     output: {
         path: path.resolve(__dirname, 'public'),
         filename: 'bundle.js',
@@ -13,12 +13,22 @@ const browserConfig = {
     },
     module: {
         rules: [
-            { test: /\.jsx?$/, use: 'babel-loader' }
+            { test: /\.jsx?$/, use: 'babel-loader' },
+            { 
+                test: /\.css$/, 
+                use: [
+                    MiniCssEatractPlugin.loader,
+                    'css-loader'
+                ]
+            }
         ]
     },
     plugins: [
         new webpack.DefinePlugin({
             __isBrowser__: true
+        }),
+        new MiniCssEatractPlugin({
+            filename: 'style.css'
         })
     ]
 };
@@ -35,7 +45,8 @@ const serverConfig = {
     externals: [nodeExternals()],
     module: {
         rules: [
-            { test: /\.jsx?$/, use: 'babel-loader' }
+            { test: /\.jsx?$/, use: 'babel-loader' },
+            { test: /\.css$/, use: 'ignore-loader' }
         ]
     },
     plugins: [

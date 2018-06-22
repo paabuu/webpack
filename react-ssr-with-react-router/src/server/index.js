@@ -35,6 +35,7 @@ app.get('*', (req, res) => {
             <html>
                 <head>
                     <title>React SSR</title>
+                    <link rel="stylesheet" href="/style.css" />
                     <script>window.__INIT_STATE__ = ${serialize(store.getState())}</script>
                 </head>
                 <body>

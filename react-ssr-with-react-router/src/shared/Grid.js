@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchRepos } from './redux/actions';
+import './grid.css';
 
 class Grid extends Component {
     componentDidMount() {
@@ -17,10 +18,10 @@ class Grid extends Component {
     render() {
         const { repos } = this.props;
         return (
-            <ul style={{display: 'flex', flexWrap: 'wrap'}}>
+            <ul className="container">
             {repos.map(({ name, owner, stargazers_count, html_url }) => (
-              <li key={name} style={{margin: 30}}>
-                <ul>
+              <li key={name}>
+                <ul className="each-repo">
                   <li><a href={html_url}>{name}</a></li>
                   <li>@{owner.login}</li>
                   <li>{stargazers_count} stars</li>

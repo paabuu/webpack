@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import './navbar.css';
 
 export default function Navbar () {
   const languages = [{
@@ -20,10 +21,10 @@ export default function Navbar () {
   }]
 
   return (
-    <ul>
+    <ul className="navbar">
       {languages.map(({ name, param }) => (
         <li key={param}>
-          <NavLink activeStyle={{fontWeight: 'bold'}} to={`/popular/${param}`}>
+          <NavLink activeStyle={{fontWeight: 'bold', color: "#2196f3"}} to={`/popular/${param}`}>
             {name}
           </NavLink>
         </li>
